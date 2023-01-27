@@ -2,6 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart' as Mongo;
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
+import 'package:mongo_flutter/display.dart';
 import 'package:mongo_flutter/mongoModel.dart';
 
 class insertData extends StatefulWidget {
@@ -99,6 +100,8 @@ class _insertDataState extends State<insertData> {
                     onPressed: () {
                       insert(firstnameCont.text, lastnameCont.text,
                           addressnameCont.text);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => display()));
                     },
                     child: const Text("Insert Data"),
                   ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
-import 'package:mongo_flutter/insert.dart';
+import 'package:mongo_flutter/display.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: insertData(),
+      home: display(),
     );
   }
 }

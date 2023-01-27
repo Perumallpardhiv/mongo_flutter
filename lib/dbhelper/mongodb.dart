@@ -29,4 +29,9 @@ class MongoDatabase {
       return e.toString();
     }
   }
+
+  static Future<List<Map<String, dynamic>>> getData() async {
+    final data = await userCollection.find().toList();
+    return data;
+  }
 }
