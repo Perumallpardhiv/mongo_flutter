@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mongo_flutter/homePage.dart';
+import 'package:mongo_flutter/dbhelper/mongodb.dart';
+import 'package:mongo_flutter/insert.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await MongoDatabase.connect();
   runApp(const MyApp());
 }
 
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: homePage(),
+      home: insertData(),
     );
   }
 }
