@@ -29,35 +29,47 @@ class _displayState extends State<display> {
                   var totaldata = snapshot.data.length;
                   print(totaldata.toString());
                   return ListView.builder(
-                      itemCount: totaldata,
-                      itemBuilder: ((context, index) {
-                        var dataindex =
-                            MongoDBmodel.fromJson(snapshot.data[index]);
-                        return Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: [
-                                Text(dataindex.id.$oid),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(dataindex.firstName),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(dataindex.lastName),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(dataindex.address),
-                              ],
-                            ),
+                    itemCount: totaldata,
+                    itemBuilder: (context, index) {
+                      var dataindex =
+                          MongoDBmodel.fromJson(snapshot.data[index]);
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(dataindex.id.$oid),
+                                  Text(dataindex.firstName),
+                                  Text(dataindex.lastName),
+                                  Text(dataindex.address),
+                                ],
+                              ),
+                              IconButton(
+                                onPressed: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => insertorEditData(
+                                        datamodel: dataindex,
+                                      ),
+                                    ),
+                                  );
+                                  setState(() {});
+                                },
+                                icon: Icon(Icons.edit),
+                              ),
+                            ],
                           ),
-                        );
-                      }));
+                        ),
+                      );
+                    },
+                  );
                 } else {
-                  return Center(
+                  return const Center(
                     child: Text("No Data"),
                   );
                 }
@@ -67,11 +79,15 @@ class _displayState extends State<display> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => insertData()));
+        onPressed: () async {
+          await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => insertorEditData(),
+              ));
+          setState(() {});
         },
-        label: Text("Insert Page"),
+        label: Text("Insert Data"),
       ),
     );
   }

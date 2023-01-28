@@ -18,7 +18,6 @@ class MongoDatabase {
   static Future<String> insert(MongoDBmodel model) async {
     try {
       var result = await userCollection.insertOne(model.toJson());
-
       if (result.isSuccess) {
         return "Data inserted";
       } else {
@@ -33,5 +32,15 @@ class MongoDatabase {
   static Future<List<Map<String, dynamic>>> getData() async {
     final data = await userCollection.find().toList();
     return data;
+  }
+
+  static Future<String> update(MongoDBmodel model) async {
+    var result = await userCollection.findOne({"_id": model.id});
+    result['firstName'] = model.firstName;
+    result['lastName'] = model.lastName;
+    result['address'] = model.address;
+    var responce = await userCollection.save(result);
+    inspect(responce);
+    return "Done";
   }
 }
