@@ -62,6 +62,16 @@ class _displayState extends State<display> {
                                 },
                                 icon: Icon(Icons.edit),
                               ),
+                              IconButton(
+                                onPressed: () async {
+                                  var result =
+                                      await MongoDatabase.delete(dataindex.id);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(result)));
+                                  setState(() {});
+                                },
+                                icon: Icon(Icons.delete),
+                              ),
                             ],
                           ),
                         ),

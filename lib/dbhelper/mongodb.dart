@@ -43,4 +43,9 @@ class MongoDatabase {
     inspect(responce);
     return "Done";
   }
+
+  static Future<String> delete(ObjectId id) async {
+    var result = await userCollection.remove(where.id(id));
+    return "Deleted";
+  }
 }
