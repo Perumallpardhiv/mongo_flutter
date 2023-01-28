@@ -48,4 +48,15 @@ class MongoDatabase {
     var result = await userCollection.remove(where.id(id));
     return "Deleted";
   }
+
+  static Future<List<Map<String, dynamic>>> querySearch(String search) async {
+    if (search.isEmpty) {
+      final data = await userCollection.find().toList();
+      return data;
+    } else {
+      // searching by specific field "firstName".
+      final data = await userCollection.find(where.match("firstName", search.toString().toLowerCase())).toList();
+      return data;
+    }
+  }
 }

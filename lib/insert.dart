@@ -26,7 +26,7 @@ class _insertorEditDataState extends State<insertorEditData> {
           faker.address.streetName() + " " + faker.address.streetAddress();
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     if (widget.datamodel != null) {
@@ -102,8 +102,8 @@ class _insertorEditDataState extends State<insertorEditData> {
                           var id = Mongo.ObjectId();
                           final model = MongoDBmodel(
                             id: id,
-                            firstName: firstnameCont.text,
-                            lastName: lastnameCont.text,
+                            firstName: firstnameCont.text.toLowerCase(),
+                            lastName: lastnameCont.text.toLowerCase(),
                             address: addressnameCont.text,
                           );
                           var result = await MongoDatabase.insert(model);
