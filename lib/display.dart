@@ -11,7 +11,10 @@ class display extends StatefulWidget {
 }
 
 class _displayState extends State<display> {
-  var word = "";
+  var firstNameSearch = "";
+  var lastNameSearch = "";
+  var addressSearch = "";
+  UniqueKey keyTile = UniqueKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +24,11 @@ class _displayState extends State<display> {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+                padding: const EdgeInsets.fromLTRB(6, 10, 6, 4),
                 child: TextField(
                   onChanged: (value) {
                     setState(() {
-                      word = value;
+                      firstNameSearch = value;
                     });
                   },
                   decoration: InputDecoration(
@@ -40,14 +42,63 @@ class _displayState extends State<display> {
                       Icons.search,
                       size: 25,
                     ),
-                    labelText: "Search by Name",
+                    labelText: "Search by FirstName",
+                    contentPadding: EdgeInsets.only(left: 10),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(6, 4, 6, 4),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      lastNameSearch = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1, color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 3, color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50)),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      size: 25,
+                    ),
+                    labelText: "Search by LastName",
+                    contentPadding: EdgeInsets.only(left: 10),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(6, 4, 6, 6),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      addressSearch = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1, color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 3, color: Colors.blue),
+                        borderRadius: BorderRadius.circular(50)),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      size: 25,
+                    ),
+                    labelText: "Search by Address",
                     contentPadding: EdgeInsets.only(left: 10),
                   ),
                 ),
               ),
               Expanded(
                 child: FutureBuilder(
-                  future: MongoDatabase.querySearch(word),
+                  future: MongoDatabase.querySearch(
+                      firstNameSearch, lastNameSearch, addressSearch),
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
@@ -57,63 +108,70 @@ class _displayState extends State<display> {
                       if (snapshot.hasData) {
                         var totaldata = snapshot.data.length;
                         print(totaldata.toString());
-                        return ListView.builder(
-                          itemCount: totaldata,
-                          itemBuilder: (context, index) {
-                            var dataindex =
-                                MongoDBmodel.fromJson(snapshot.data[index]);
-                            return SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(dataindex.id.$oid),
-                                          Text(dataindex.firstName),
-                                          Text(dataindex.lastName),
-                                          Text(dataindex.address),
-                                        ],
-                                      ),
-                                      IconButton(
-                                        onPressed: () async {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  insertorEditData(
-                                                datamodel: dataindex,
+                        if (totaldata != 0) {
+                          return ListView.builder(
+                            itemCount: totaldata,
+                            itemBuilder: (context, index) {
+                              var dataindex =
+                                  MongoDBmodel.fromJson(snapshot.data[index]);
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(dataindex.id.$oid),
+                                            Text(dataindex.firstName),
+                                            Text(dataindex.lastName),
+                                            Text(dataindex.address),
+                                          ],
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    insertorEditData(
+                                                  datamodel: dataindex,
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                          setState(() {});
-                                        },
-                                        icon: Icon(Icons.edit),
-                                      ),
-                                      IconButton(
-                                        onPressed: () async {
-                                          var result = await MongoDatabase.delete(
-                                              dataindex.id);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(result)));
-                                          setState(() {});
-                                        },
-                                        icon: Icon(Icons.delete),
-                                      ),
-                                    ],
+                                            );
+                                            setState(() {});
+                                          },
+                                          icon: Icon(Icons.edit),
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            var result =
+                                                await MongoDatabase.delete(
+                                                    dataindex.id);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: Text(result)));
+                                            setState(() {});
+                                          },
+                                          icon: Icon(Icons.delete),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
+                              );
+                            },
+                          );
+                        } else {
+                          return Center(
+                            child: Text("No Data"),
+                          );
+                        }
                       } else {
                         return const Center(
                           child: Text("No Data"),

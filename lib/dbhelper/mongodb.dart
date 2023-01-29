@@ -49,13 +49,55 @@ class MongoDatabase {
     return "Deleted";
   }
 
-  static Future<List<Map<String, dynamic>>> querySearch(String search) async {
-    if (search.isEmpty) {
+  static Future<List<Map<String, dynamic>>> querySearch(
+      String fname, String lname, String address) async {
+    if (fname.isEmpty && lname.isEmpty && address.isEmpty) {
       final data = await userCollection.find().toList();
       return data;
-    } else {
+    } else if (fname.isNotEmpty && lname.isEmpty && address.isEmpty) {
       // searching by specific field "firstName".
-      final data = await userCollection.find(where.match("firstName", search.toString().toLowerCase())).toList();
+      final data = await userCollection
+          .find(where.match("firstName", fname.toString().toLowerCase()))
+          .toList();
+      return data;
+    } else if (fname.isEmpty && lname.isNotEmpty && address.isEmpty) {
+      final data = await userCollection
+          .find(where.match("lastName", lname.toString().toLowerCase()))
+          .toList();
+      return data;
+    } else if (fname.isEmpty && lname.isEmpty && address.isNotEmpty) {
+      final data = await userCollection
+          .find(where.match("address", address.toString().toLowerCase()))
+          .toList();
+      return data;
+    } else if (fname.isNotEmpty && lname.isNotEmpty && address.isEmpty) {
+      final data = await userCollection
+          .find(where
+              .match("firstName", fname.toString().toLowerCase())
+              .match("lastName", lname.toString().toLowerCase()))
+          .toList();
+      return data;
+    } else if (fname.isNotEmpty && lname.isEmpty && address.isNotEmpty) {
+      final data = await userCollection
+          .find(where
+              .match("firstName", fname.toString().toLowerCase())
+              .match("address", address.toString().toLowerCase()))
+          .toList();
+      return data;
+    } else if (fname.isEmpty && lname.isNotEmpty && address.isNotEmpty) {
+      final data = await userCollection
+          .find(where
+              .match("lastName", lname.toString().toLowerCase())
+              .match("address", address.toString().toLowerCase()))
+          .toList();
+      return data;
+    } else {
+      final data = await userCollection
+          .find(where
+              .match("firstName", fname.toString().toLowerCase())
+              .match("lastName", lname.toString().toLowerCase())
+              .match("address", address.toString().toLowerCase()))
+          .toList();
       return data;
     }
   }

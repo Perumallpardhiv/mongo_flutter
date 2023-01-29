@@ -104,7 +104,7 @@ class _insertorEditDataState extends State<insertorEditData> {
                             id: id,
                             firstName: firstnameCont.text.toLowerCase(),
                             lastName: lastnameCont.text.toLowerCase(),
-                            address: addressnameCont.text,
+                            address: addressnameCont.text.toLowerCase(),
                           );
                           var result = await MongoDatabase.insert(model);
                           print(result);
