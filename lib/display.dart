@@ -23,75 +23,105 @@ class _displayState extends State<display> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(6, 10, 6, 4),
-                child: TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      firstNameSearch = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: Colors.blue),
-                        borderRadius: BorderRadius.circular(50)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 3, color: Colors.blue),
-                        borderRadius: BorderRadius.circular(50)),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      size: 25,
-                    ),
-                    labelText: "Search by FirstName",
-                    contentPadding: EdgeInsets.only(left: 10),
-                  ),
+              Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(6, 4, 6, 4),
-                child: TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      lastNameSearch = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: Colors.blue),
-                        borderRadius: BorderRadius.circular(50)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 3, color: Colors.blue),
-                        borderRadius: BorderRadius.circular(50)),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      size: 25,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: ExpansionTile(
+                    initiallyExpanded: false,
+                    key: keyTile,
+                    title: Text(
+                      "Search From List",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromARGB(255, 8, 7, 7),
+                      ),
                     ),
-                    labelText: "Search by LastName",
-                    contentPadding: EdgeInsets.only(left: 10),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(6, 4, 6, 6),
-                child: TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      addressSearch = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: Colors.blue),
-                        borderRadius: BorderRadius.circular(50)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 3, color: Colors.blue),
-                        borderRadius: BorderRadius.circular(50)),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      size: 25,
-                    ),
-                    labelText: "Search by Address",
-                    contentPadding: EdgeInsets.only(left: 10),
+                    childrenPadding: EdgeInsets.all(12),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(3, 6, 3, 4),
+                        child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              firstNameSearch = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(50)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(50)),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 25,
+                            ),
+                            labelText: "Search by FirstName",
+                            contentPadding: EdgeInsets.only(left: 10),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(3, 4, 3, 4),
+                        child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              lastNameSearch = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(50)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(50)),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 25,
+                            ),
+                            labelText: "Search by LastName",
+                            contentPadding: EdgeInsets.only(left: 10),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(3, 4, 3, 6),
+                        child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              addressSearch = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(50)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.blue),
+                                borderRadius: BorderRadius.circular(50)),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 25,
+                            ),
+                            labelText: "Search by Address",
+                            contentPadding: EdgeInsets.only(left: 10),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
