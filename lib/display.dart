@@ -62,50 +62,53 @@ class _displayState extends State<display> {
                           itemBuilder: (context, index) {
                             var dataindex =
                                 MongoDBmodel.fromJson(snapshot.data[index]);
-                            return Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(dataindex.id.$oid),
-                                        Text(dataindex.firstName),
-                                        Text(dataindex.lastName),
-                                        Text(dataindex.address),
-                                      ],
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                insertorEditData(
-                                              datamodel: dataindex,
+                            return SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(dataindex.id.$oid),
+                                          Text(dataindex.firstName),
+                                          Text(dataindex.lastName),
+                                          Text(dataindex.address),
+                                        ],
+                                      ),
+                                      IconButton(
+                                        onPressed: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  insertorEditData(
+                                                datamodel: dataindex,
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                        setState(() {});
-                                      },
-                                      icon: Icon(Icons.edit),
-                                    ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        var result = await MongoDatabase.delete(
-                                            dataindex.id);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(result)));
-                                        setState(() {});
-                                      },
-                                      icon: Icon(Icons.delete),
-                                    ),
-                                  ],
+                                          );
+                                          setState(() {});
+                                        },
+                                        icon: Icon(Icons.edit),
+                                      ),
+                                      IconButton(
+                                        onPressed: () async {
+                                          var result = await MongoDatabase.delete(
+                                              dataindex.id);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(result)));
+                                          setState(() {});
+                                        },
+                                        icon: Icon(Icons.delete),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
