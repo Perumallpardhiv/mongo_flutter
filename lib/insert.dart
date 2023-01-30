@@ -177,7 +177,7 @@ class _insertorEditDataState extends State<insertorEditData> {
                                 () => EasyLoading.showSuccess(
                                     "Successfully Updated"),
                               );
-                              // prov1.maketonull();
+                              prov1.maketonull();
                               print(result);
                             } else {
                               var id = Mongo.ObjectId();
