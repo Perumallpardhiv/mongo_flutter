@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
 import 'package:mongo_flutter/insert.dart';
@@ -153,6 +155,27 @@ class _displayState extends State<display> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 11.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            child: Image.memory(
+                                              base64Decode(
+                                                  dataindex.imagebase64),
+                                              fit: BoxFit.cover,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.23,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.1,
+                                            ),
+                                          ),
+                                        ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,

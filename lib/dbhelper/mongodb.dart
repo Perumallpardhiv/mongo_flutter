@@ -39,6 +39,7 @@ class MongoDatabase {
     result['firstName'] = model.firstName;
     result['lastName'] = model.lastName;
     result['address'] = model.address;
+    result['imagebase64'] = model.imagebase64;
     var responce = await userCollection.save(result);
     inspect(responce);
     return "Done";
