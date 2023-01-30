@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
-import 'package:mongo_flutter/insert.dart';
-import 'package:mongo_flutter/mongoModel.dart';
+import 'package:mongo_flutter/pages/insert.dart';
+import 'package:mongo_flutter/model/mongoModel.dart';
 
 class display extends StatefulWidget {
   const display({super.key});

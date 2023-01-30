@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:mongo_flutter/dbhelper/const.dart';
-import 'package:mongo_flutter/mongoModel.dart';
+import 'package:mongo_flutter/model/mongoModel.dart';
 
 class MongoDatabase {
   static var db, userCollection;

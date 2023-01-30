@@ -10,9 +10,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mongo_dart/mongo_dart.dart' as Mongo;
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
-import 'package:mongo_flutter/display.dart';
-import 'package:mongo_flutter/mongoModel.dart';
-import 'package:mongo_flutter/provider.dart';
+import 'package:mongo_flutter/pages/display.dart';
+import 'package:mongo_flutter/model/mongoModel.dart';
+import 'package:mongo_flutter/provider/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
