@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
@@ -5,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mongo_dart/mongo_dart.dart' as Mongo;
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
@@ -27,10 +29,23 @@ class _insertorEditDataState extends State<insertorEditData> {
   var lastnameCont = TextEditingController();
   var addressnameCont = TextEditingController();
 
+  Timer? _timer;
+  @override
+  void initState() {
+    super.initState();
+    EasyLoading.addStatusCallback((status) {
+      print('EasyLoading Status $status');
+      if (status == EasyLoadingStatus.dismiss) {
+        _timer?.cancel();
+      }
+    });
+    // EasyLoading.showSuccess('Use in initState');
+  }
+
   final ImagePicker _picker = ImagePicker();
   Uint8List? imgUnit8List;
   String? _base64Img;
-  
+
   void _fakedata() {
     setState(() {
       firstnameCont.text = faker.person.firstName();
@@ -156,8 +171,13 @@ class _insertorEditDataState extends State<insertorEditData> {
                                 address: addressnameCont.text.toLowerCase(),
                                 imagebase64: value.base64Img!,
                               );
-                              var result = await MongoDatabase.update(model);
-                              prov1.maketonull();
+                              EasyLoading.show(status: 'Updating...');
+                              var result = await MongoDatabase.update(model)
+                                  .whenComplete(
+                                () => EasyLoading.showSuccess(
+                                    "Successfully Updated"),
+                              );
+                              // prov1.maketonull();
                               print(result);
                             } else {
                               var id = Mongo.ObjectId();
@@ -168,7 +188,12 @@ class _insertorEditDataState extends State<insertorEditData> {
                                 address: addressnameCont.text.toLowerCase(),
                                 imagebase64: value.base64Img!,
                               );
-                              var result = await MongoDatabase.insert(model);
+                              EasyLoading.show(status: 'Inserting...');
+                              var result = await MongoDatabase.insert(model)
+                                  .whenComplete(
+                                () => EasyLoading.showSuccess(
+                                    'Successfully Inserted!'),
+                              );
                               prov1.maketonull();
                               print(result);
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -178,6 +203,7 @@ class _insertorEditDataState extends State<insertorEditData> {
                               );
                             }
                             Navigator.pop(context, true);
+                            EasyLoading.dismiss();
                           },
                           child: widget.datamodel == null
                               ? Text("Insert Data")
