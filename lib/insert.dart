@@ -104,12 +104,12 @@ class _insertorEditDataState extends State<insertorEditData> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
-                          child: value.imgUnit8List == null
+                          child: widget.datamodel == null
                               ? Placeholder(
                                   fallbackHeight: 200,
                                 )
                               : Image.memory(
-                                  value.imgUnit8List!,
+                                  value.imgUnit8List == null ? imgUnit8List! : value.imgUnit8List!,
                                   fit: BoxFit.cover,
                                 ),
                         ),
