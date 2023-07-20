@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
 import 'package:mongo_flutter/pages/insert.dart';
@@ -35,7 +34,7 @@ class _displayState extends State<display> {
                   child: ExpansionTile(
                     initiallyExpanded: false,
                     key: keyTile,
-                    title: Text(
+                    title: const Text(
                       "Search From List",
                       style: TextStyle(
                         fontSize: 18,
@@ -43,7 +42,7 @@ class _displayState extends State<display> {
                         color: Color.fromARGB(255, 8, 7, 7),
                       ),
                     ),
-                    childrenPadding: EdgeInsets.all(12),
+                    childrenPadding: const EdgeInsets.all(12),
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(3, 6, 3, 4),
@@ -55,19 +54,19 @@ class _displayState extends State<display> {
                           },
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.blue),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.blue),
                                 borderRadius: BorderRadius.circular(50)),
                             focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 3, color: Colors.blue),
+                                borderSide: const BorderSide(
+                                    width: 3, color: Colors.blue),
                                 borderRadius: BorderRadius.circular(50)),
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.search,
                               size: 25,
                             ),
                             labelText: "Search by FirstName",
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding: const EdgeInsets.only(left: 10),
                           ),
                         ),
                       ),
@@ -81,19 +80,19 @@ class _displayState extends State<display> {
                           },
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.blue),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.blue),
                                 borderRadius: BorderRadius.circular(50)),
                             focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 3, color: Colors.blue),
+                                borderSide: const BorderSide(
+                                    width: 3, color: Colors.blue),
                                 borderRadius: BorderRadius.circular(50)),
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.search,
                               size: 25,
                             ),
                             labelText: "Search by LastName",
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding: const EdgeInsets.only(left: 10),
                           ),
                         ),
                       ),
@@ -107,19 +106,19 @@ class _displayState extends State<display> {
                           },
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.blue),
+                                borderSide: const BorderSide(
+                                    width: 1, color: Colors.blue),
                                 borderRadius: BorderRadius.circular(50)),
                             focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 3, color: Colors.blue),
+                                borderSide: const BorderSide(
+                                    width: 3, color: Colors.blue),
                                 borderRadius: BorderRadius.circular(50)),
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.search,
                               size: 25,
                             ),
                             labelText: "Search by Address",
-                            contentPadding: EdgeInsets.only(left: 10),
+                            contentPadding: const EdgeInsets.only(left: 10),
                           ),
                         ),
                       ),
@@ -133,7 +132,7 @@ class _displayState extends State<display> {
                       firstNameSearch, lastNameSearch, addressSearch),
                   builder: (context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
@@ -199,7 +198,7 @@ class _displayState extends State<display> {
                                             );
                                             setState(() {});
                                           },
-                                          icon: Icon(Icons.edit),
+                                          icon: const Icon(Icons.edit),
                                         ),
                                         IconButton(
                                           onPressed: () async {
@@ -211,7 +210,7 @@ class _displayState extends State<display> {
                                                     content: Text(result)));
                                             setState(() {});
                                           },
-                                          icon: Icon(Icons.delete),
+                                          icon: const Icon(Icons.delete),
                                         ),
                                       ],
                                     ),
@@ -221,7 +220,7 @@ class _displayState extends State<display> {
                             },
                           );
                         } else {
-                          return Center(
+                          return const Center(
                             child: Text("No Data"),
                           );
                         }
@@ -247,7 +246,7 @@ class _displayState extends State<display> {
               ));
           setState(() {});
         },
-        label: Text("Insert Data"),
+        label: const Text("Insert Data"),
       ),
     );
   }

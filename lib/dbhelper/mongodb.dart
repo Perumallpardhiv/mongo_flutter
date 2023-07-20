@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:mongo_flutter/dbhelper/const.dart';
 import 'package:mongo_flutter/model/mongoModel.dart';
@@ -46,7 +45,7 @@ class MongoDatabase {
   }
 
   static Future<String> delete(ObjectId id) async {
-    var result = await userCollection.remove(where.id(id));
+    await userCollection.remove(where.id(id));
     return "Deleted";
   }
 

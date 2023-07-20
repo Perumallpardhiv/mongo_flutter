@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
 import 'package:mongo_flutter/pages/display.dart';
-import 'package:mongo_flutter/pages/insert.dart';
 import 'package:mongo_flutter/provider/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +11,7 @@ Future<void> main() async {
   runApp(
     ChangeNotifierProvider(
       create: (BuildContext context) => imageBase64String(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
   configLoading();
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: display(),
+      home: const display(),
       builder: EasyLoading.init(),
     );
   }

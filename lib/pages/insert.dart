@@ -1,21 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:mongo_dart/mongo_dart.dart' as Mongo;
 import 'package:mongo_flutter/dbhelper/mongodb.dart';
-import 'package:mongo_flutter/pages/display.dart';
 import 'package:mongo_flutter/model/mongoModel.dart';
 import 'package:mongo_flutter/provider/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:transparent_image/transparent_image.dart';
 
+// ignore: camel_case_types, must_be_immutable
 class insertorEditData extends StatefulWidget {
   MongoDBmodel? datamodel;
   insertorEditData({this.datamodel});
@@ -42,7 +37,6 @@ class _insertorEditDataState extends State<insertorEditData> {
     // EasyLoading.showSuccess('Use in initState');
   }
 
-  final ImagePicker _picker = ImagePicker();
   Uint8List? imgUnit8List;
   String? _base64Img;
 
@@ -51,7 +45,7 @@ class _insertorEditDataState extends State<insertorEditData> {
       firstnameCont.text = faker.person.firstName();
       lastnameCont.text = faker.person.lastName();
       addressnameCont.text =
-          faker.address.streetName() + " " + faker.address.streetAddress();
+          "${faker.address.streetName()} ${faker.address.streetAddress()}";
     });
   }
 
@@ -97,7 +91,7 @@ class _insertorEditDataState extends State<insertorEditData> {
                               spreadRadius: 2,
                               blurRadius: 7,
                               color: Colors.black.withOpacity(0.1),
-                              offset: Offset(0, 10),
+                              offset: const Offset(0, 10),
                             ),
                           ],
                           shape: BoxShape.circle,
@@ -105,11 +99,13 @@ class _insertorEditDataState extends State<insertorEditData> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: widget.datamodel == null
-                              ? Placeholder(
+                              ? const Placeholder(
                                   fallbackHeight: 200,
                                 )
                               : Image.memory(
-                                  value.imgUnit8List == null ? imgUnit8List! : value.imgUnit8List!,
+                                  value.imgUnit8List == null
+                                      ? imgUnit8List!
+                                      : value.imgUnit8List!,
                                   fit: BoxFit.cover,
                                 ),
                         ),
@@ -198,7 +194,7 @@ class _insertorEditDataState extends State<insertorEditData> {
                               print(result);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Inserted ID : " + id.$oid),
+                                  content: Text("Inserted ID : ${id.$oid}"),
                                 ),
                               );
                             }
@@ -206,8 +202,8 @@ class _insertorEditDataState extends State<insertorEditData> {
                             EasyLoading.dismiss();
                           },
                           child: widget.datamodel == null
-                              ? Text("Insert Data")
-                              : Text("Update Data"),
+                              ? const Text("Insert Data")
+                              : const Text("Update Data"),
                         );
                       },
                     ),

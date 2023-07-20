@@ -2,7 +2,7 @@
     package="com.example.mongo_flutter">
    <application
         android:requestLegacyExternalStorage="true"
-        android:label="mongo_flutter"
+        android:label="Mongo Flutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
